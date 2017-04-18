@@ -11,15 +11,7 @@ import java.util.Properties;
 
 public class Bot {
     public static void main(String[] args) throws Exception {
-        if (true) {
-            Properties properties = new Properties();
-            properties.setProperty(Utils.PROPERTY_TWITTER_USER_NAME, "TweetTooter1000");
-            properties.setProperty(Utils.PROPERTY_TWITTER_PASSWORD, "deith9aen7mi1yeepaQu5Ahyienohl");
-            properties.setProperty(Utils.PROPERTY_MASTODON_USER_NAME, "TweetTooter1000@octodon.social");
-            properties.setProperty(Utils.PROPERTY_MASTODON_PASSWORD, "jahraisheeDaefu4waer2eyeije9aG");
-            properties.store(new FileOutputStream("/tmp/net.pla1.tweettooter.Bot.properties"), null);
-            System.exit(0);
-        }
+        
         System.out.format("%s", new Date());
         Bot bot = new Bot();
         try {
