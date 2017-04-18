@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TweetTooter.iml" filepath="$PROJECT_DIR$/.idea/modules/TweetTooter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TweetTooter_main.iml" filepath="$PROJECT_DIR$/.idea/modules/TweetTooter_main.iml" group="TweetTooter" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TweetTooter_test.iml" filepath="$PROJECT_DIR$/.idea/modules/TweetTooter_test.iml" group="TweetTooter" />
+    </modules>
+  </component>
+</project>
