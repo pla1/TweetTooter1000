@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class Bot {
     private final String URL_MASTODON = "https://octodon.social/auth/sign_in";
-    private final String URL_TWITTER = "https://twitter.com/hashtag/chswx?f=tweets&vertical=default&src=tren";
+    private final String URL_TWITTER = "https://twitter.com/search?f=tweets&vertical=default&q=chswx&src=typd";
 
     public static void main(String[] args) throws Exception {
 
@@ -118,8 +118,10 @@ public class Bot {
                     s.type(Key.ENTER);
                     Utils.sleep(3);
                     s.type(clipboardContents);
-                    s.type(Key.SPACE);
+                    s.type(" #chswx ");
                     s.click("images/toot_button.png");
+                    Utils.sleep(2);
+                    s.type(Key.TAB, KeyModifier.CTRL);
                 }
             }
         }
