@@ -19,10 +19,12 @@ public class Utils {
     public static final String PROPERTY_TWITTER_USER_NAME = "twitterUserName";
     public static final String PROPERTY_TWITTER_PASSWORD = "twitterPassword";
     public static final String PROPERTY_MASTODON_USER_NAME = "mastodonUserName";
+    public static final String PROPERTY_MASTODON_EMAIL_ADDRESS = "mastodonEmailAddress";
     public static final String PROPERTY_MASTODON_PASSWORD = "mastodonPassword";
     public static final String PROPERTY_FILE_NAME = "/etc/net.pla1.tweettooter.Bot.properties";
 
     public static boolean click(Screen screen, String imageName) {
+
         try {
             screen.click(imageName);
             System.out.format("%s clicked.\n", imageName);
@@ -165,6 +167,8 @@ public class Utils {
     }
 
     public static void main(String[] args) throws Exception {
+
+
 
 
         if (false) {
