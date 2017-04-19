@@ -12,9 +12,9 @@ import java.awt.datatransfer.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.channels.FileChannel;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class Utils {
@@ -37,10 +37,36 @@ public class Utils {
         return false;
     }
 
-    public static void setClipboard(String s) {
-        StringSelection selection = new StringSelection(s);
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(selection, selection);
+    public static String copyFile(String fromFileName) {
+        FileChannel fromFileChannel = null;
+        FileChannel toFileChannel = null;
+        String toFileName = null;
+        try {
+            File fromFile = new File(fromFileName);
+            String fromFileNameOnly = fromFile.getName();
+            toFileName = String.format("/tmp/%s", fromFileNameOnly);
+            File toFile = new File(toFileName);
+            fromFileChannel = new FileInputStream(fromFile).getChannel();
+            toFileChannel = new FileOutputStream(toFile).getChannel();
+            toFileChannel.transferFrom(fromFileChannel, 0, fromFileChannel.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            Utils.close(fromFileChannel);
+            Utils.close(toFileChannel);
+        }
+        return toFileName;
+    }
+
+    public static void close(FileChannel fileChannel) {
+        if (fileChannel == null) {
+            return;
+        }
+        try {
+            fileChannel.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getClipboard() {
@@ -55,6 +81,12 @@ public class Utils {
             }
         }
         return null;
+    }
+
+    public static void setClipboard(String s) {
+        StringSelection selection = new StringSelection(s);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
     }
 
     public static boolean clickFirstFound(Screen screen, String... imageNames) {

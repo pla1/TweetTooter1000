@@ -53,9 +53,10 @@ public class Bot {
 
         Screen s = new Screen();
         System.out.println(Utils.run(new String[]{"/usr/bin/killall", "chrome"}));
-        String[] commandParts = {"/usr/bin/chromium-browser", URL_TWITTER};
+        String[] commandParts = {"/usr/bin/chromium-browser", "--incognito", URL_TWITTER};
         Utils.runNoOutput(commandParts);
         Utils.waitForImage(s, "images/latest_label.png", 10);
+        s.type(Key.ESC);
         s.type("t", KeyModifier.CTRL);
         s.type(URL_MASTODON);
         s.type(Key.ENTER);
@@ -103,10 +104,15 @@ public class Bot {
                 System.out.format("Top left corner at H: %s W: %d X: %d Y: %d\n", topLeftCornerMatch.h, topLeftCornerMatch.w, topLeftCornerMatch.x, topLeftCornerMatch.y);
                 Match bottomRightCornerMatch = s.find("images/bottom_right_corner.png");
                 System.out.format("Bottom right corner at H: %s W: %d X: %d Y: %d\n", bottomRightCornerMatch.h, bottomRightCornerMatch.w, bottomRightCornerMatch.x, bottomRightCornerMatch.y);
-                Region region = new Region(topLeftCornerMatch.x, topLeftCornerMatch.y, (bottomRightCornerMatch.x - topLeftCornerMatch.x) + bottomRightCornerMatch.w, (bottomRightCornerMatch.y - topLeftCornerMatch.y) - bottomRightCornerMatch.h);
+                Region region = new Region(
+                        topLeftCornerMatch.x,
+                        topLeftCornerMatch.y,
+                        (bottomRightCornerMatch.x - topLeftCornerMatch.x) + bottomRightCornerMatch.w,
+                        bottomRightCornerMatch.y - topLeftCornerMatch.y);
                 System.out.format("Region  X:%d  Y:%d  W:%d  H:%d.\n", region.x, region.y, region.w, region.h);
                 String fileName = region.saveScreenCapture();
-                System.out.format("Image captured %s\n", fileName);
+                String copiedFile = Utils.copyFile(fileName);
+                System.out.format("Image captured as %s and a copy %s.\n", fileName, copiedFile);
                 //   String[] openImageCommandParts = {"xdg-open", fileName};
                 //   Utils.run(openImageCommandParts);
                 s.type(Key.ESC);
