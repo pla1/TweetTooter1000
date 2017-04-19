@@ -17,5 +17,5 @@ hs_err_pid*
 /gradle
 build.gradle
 gradlew
-gradelw.bat
+gradlew.bat
 settings.gradle
