@@ -12,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class Utils {
@@ -163,8 +164,10 @@ public class Utils {
         return run(commandParts);
     }
 
-    public static void main(String[] args) {
-        if (true) {
+    public static void main(String[] args) throws Exception {
+
+
+        if (false) {
             Screen s = new Screen();
             Utils.waitForImage(s, "images/index_out_of_bounds.png", 20);
             s.click();

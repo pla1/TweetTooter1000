@@ -50,23 +50,21 @@ public class Bot {
         boolean done = false;
         while (!done) {
             System.out.format("Wait for new result. %s\n", new Date());
-            if (Utils.waitClick(s, "images/new_result_label.png", 60)) {
-                System.out.println("Click on new result label.");
-                s.click("images/new_result_label.png");
-                System.out.println("Sleep 1 second.");
-                Utils.sleep(1);
+            if (Utils.waitForImage(s, "images/new_result_label.png", 60)) {
                 System.out.println("Type period");
                 s.type(".");
                 System.out.println("Sleep 1 second.");
-                Utils.sleep(1);
+                Utils.sleep(3);
                 System.out.println("Press ENTER.");
                 s.type(Key.ENTER);
+                Utils.sleep(5);
+                System.out.println("Press ENTER.");
                 Match topLeftCornerMatch = s.find("images/top_left_corner.png");
                 System.out.format("Top left corner at H: %s W: %d X: %d Y: %d\n", topLeftCornerMatch.h, topLeftCornerMatch.w, topLeftCornerMatch.x, topLeftCornerMatch.y);
                 Match bottomRightCornerMatch = s.find("images/bottom_right_corner.png");
                 System.out.format("Bottom right corner at H: %s W: %d X: %d Y: %d\n", bottomRightCornerMatch.h, bottomRightCornerMatch.w, bottomRightCornerMatch.x, bottomRightCornerMatch.y);
-                Region region = new Region(topLeftCornerMatch.x, topLeftCornerMatch.y, bottomRightCornerMatch.x - topLeftCornerMatch.x, bottomRightCornerMatch.y - topLeftCornerMatch.y);
-                System.out.format("Region  X: %d  Y: %d  W: %d  H: %d", region.x, region.y, region.w, region.h);
+                Region region = new Region(topLeftCornerMatch.x, topLeftCornerMatch.y, (bottomRightCornerMatch.x - topLeftCornerMatch.x) + bottomRightCornerMatch.w, (bottomRightCornerMatch.y - topLeftCornerMatch.y) - bottomRightCornerMatch.h);
+                System.out.format("Region  X:%d  Y:%d  W:%d  H:%d.\n", region.x, region.y, region.w, region.h);
                 String fileName = region.saveScreenCapture();
                 System.out.format("Image captured %s\n", fileName);
                 String[] openImageCommandParts = {"xdg-open", fileName};
