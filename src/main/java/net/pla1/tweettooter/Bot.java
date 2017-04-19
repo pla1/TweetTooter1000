@@ -95,7 +95,7 @@ public class Bot {
                 Utils.waitForImage(s, "images/url_for_this_tweet.png", 10);
                 System.out.println("Ctrl-c");
                 s.type("c", KeyModifier.CTRL);
-                String clipboardContents = App.getClipboard();
+                String clipboardContents = Utils.getClipboard();
                 System.out.format("Clipboard contents: %s\n", clipboardContents);
                 s.type(Key.ESC);
                 Utils.sleep(2);

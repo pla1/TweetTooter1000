@@ -7,6 +7,8 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Screen;
 import org.sikuli.script.ScreenImage;
 
+import java.awt.*;
+import java.awt.datatransfer.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -33,6 +35,26 @@ public class Utils {
             System.out.format("%s not clicked. %s\n", imageName, e.getLocalizedMessage());
         }
         return false;
+    }
+
+    public static void setClipboard(String s) {
+        StringSelection selection = new StringSelection(s);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, selection);
+    }
+
+    public static String getClipboard() {
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable transferable = clipboard.getContents(null);
+        if (transferable != null
+                && transferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+            try {
+                return (String) transferable.getTransferData(DataFlavor.stringFlavor);
+            } catch (UnsupportedFlavorException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public static boolean clickFirstFound(Screen screen, String... imageNames) {
@@ -167,8 +189,6 @@ public class Utils {
     }
 
     public static void main(String[] args) throws Exception {
-
-
 
 
         if (false) {
