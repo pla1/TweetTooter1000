@@ -13,13 +13,8 @@ public class Bot {
     private final String URL_TWITTER = "https://twitter.com/search?f=tweets&vertical=default&q=chswx&src=typd";
 
     public static void main(String[] args) throws Exception {
-
         System.out.format("%s", new Date());
         Bot bot = new Bot();
-        if (false) {
-            bot.startBrowser();
-            System.exit(0);
-        }
         try {
             bot.startBrowser();
             bot.monitorForNewResults();
@@ -80,15 +75,14 @@ public class Bot {
     }
 
     private void monitorForNewResults() throws FindFailed {
-        boolean done = false;
         Screen s = new Screen();
         Region regionToMonitor = getRegionToMonitorForNewResults();
-        while (!done) {
+        while (true) {
             System.out.format("Wait for new result. %s\n", new Date());
             regionToMonitor.wait("images/new_result_label.png", Settings.FOREVER);
             System.out.println("Type period");
             s.type(".");
-            System.out.println("Sleep 1 second.");
+            System.out.println("Sleep 3 seconds.");
             Utils.sleep(3);
             System.out.println("Press ENTER.");
             s.type(Key.ENTER);
@@ -122,7 +116,9 @@ public class Bot {
             System.out.format("Image captured as %s and a copy %s.\n", fileName, copiedFile);
             s.type(Key.ESC);
             s.type(Key.TAB, KeyModifier.CTRL);
-            if (Utils.isNotBlank(fileName) && Utils.isNotBlank(clipboardContents)) {
+            if (Utils.isNotBlank(fileName)
+                    && Utils.isNotBlank(clipboardContents)
+                    && region.w > 200) {
                 s.click("images/mastodon_media_button.png");
                 s.click("images/file_system_label.png");
                 s.type(fileName);
@@ -133,6 +129,9 @@ public class Bot {
                 s.click("images/toot_button.png");
                 Utils.sleep(2);
                 s.type(Key.TAB, KeyModifier.CTRL);
+            } else {
+                System.out.format("Requirements for a successful posted were not met.\n\tScreenshot file name: %s\n\tClipboard contents: \"%s\"\n\tRegion width: %d\n",
+                        fileName, clipboardContents, region.w);
             }
         }
     }
