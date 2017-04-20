@@ -130,7 +130,7 @@ public class Bot {
                 Utils.sleep(2);
                 s.type(Key.TAB, KeyModifier.CTRL);
             } else {
-                System.out.format("Requirements for a successful posted were not met.\n\tScreenshot file name: %s\n\tClipboard contents: \"%s\"\n\tRegion width: %d\n",
+                System.out.format("Requirements for a successful post were not met.\n\tScreenshot file name: %s\n\tClipboard contents: \"%s\"\n\tRegion width: %d\n",
                         fileName, clipboardContents, region.w);
             }
         }
