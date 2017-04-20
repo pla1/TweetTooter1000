@@ -127,12 +127,12 @@ public class Bot {
                 s.type(clipboardContents);
                 s.type(" #chswx ");
                 s.click("images/toot_button.png");
-                Utils.sleep(2);
-                s.type(Key.TAB, KeyModifier.CTRL);
             } else {
                 System.out.format("Requirements for a successful post were not met.\n\tScreenshot file name: %s\n\tClipboard contents: \"%s\"\n\tRegion width: %d\n",
                         fileName, clipboardContents, region.w);
             }
+            Utils.sleep(2);
+            s.type(Key.TAB, KeyModifier.CTRL);
         }
     }
 }
