@@ -52,8 +52,7 @@ public class Bot {
     private void startBrowser() throws FindFailed, IOException {
         Screen s = new Screen();
         System.out.println(Utils.run(new String[]{"/usr/bin/killall", "chromium-browser"}));
-        String[] commandParts = {"/usr/bin/chromium-browser", "--incognito", URL_TWITTER};
-        Utils.runNoOutput(commandParts);
+        Utils.runNoOutput(new String[]{"/usr/bin/chromium-browser", "--incognito", URL_TWITTER});
         Utils.waitForImage(s, "images/latest_label.png", 10);
         s.type(Key.ESC);
         s.type("t", KeyModifier.CTRL);
@@ -76,8 +75,7 @@ public class Bot {
         System.out.format("Found Twitter banner - X:%d Y:%d H:%d W:%d\n", match.x, match.y, match.h, match.w);
         Region region = new Region(match.x + match.w - 200, match.y + 30, 400, 100);
         String screenCaptureFileName = region.saveScreenCapture();
-        String[] commandParts = {"xdg-open", screenCaptureFileName};
-        Utils.runNoOutput(commandParts);
+        Utils.runNoOutput(new String[]{"/usr/bin/xdg-open", screenCaptureFileName});
         return region;
     }
 
