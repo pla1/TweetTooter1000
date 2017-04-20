@@ -74,60 +74,54 @@ public class Bot {
         Screen s = new Screen();
         while (!done) {
             System.out.format("Wait for new result. %s\n", new Date());
-            if (Utils.waitForImage(s, "images/new_result_label.png", 60)) {
-                System.out.println("Type period");
-                s.type(".");
-                System.out.println("Sleep 1 second.");
+            s.wait("images/new_result_label.png", Settings.FOREVER);
+            System.out.println("Type period");
+            s.type(".");
+            System.out.println("Sleep 1 second.");
+            Utils.sleep(3);
+            System.out.println("Press ENTER.");
+            s.type(Key.ENTER);
+            Utils.sleep(5);
+            s.type(Key.TAB);
+            s.type(Key.TAB);
+            s.type(Key.TAB);
+            s.type(Key.SPACE);
+            System.out.println("Click copy link to tweet.");
+            s.type(Key.DOWN);
+            s.type(Key.ENTER);
+            Utils.waitForImage(s, "images/url_for_this_tweet.png", 10);
+            System.out.println("Ctrl-c");
+            s.type("c", KeyModifier.CTRL);
+            String clipboardContents = Utils.getClipboard();
+            System.out.format("Clipboard contents: %s\n", clipboardContents);
+            s.type(Key.ESC);
+            Utils.sleep(2);
+            Match topLeftCornerMatch = s.find("images/top_left_corner.png");
+            System.out.format("Top left corner at H: %s W: %d X: %d Y: %d\n", topLeftCornerMatch.h, topLeftCornerMatch.w, topLeftCornerMatch.x, topLeftCornerMatch.y);
+            Match bottomRightCornerMatch = s.find("images/bottom_right_corner.png");
+            System.out.format("Bottom right corner at H: %s W: %d X: %d Y: %d\n", bottomRightCornerMatch.h, bottomRightCornerMatch.w, bottomRightCornerMatch.x, bottomRightCornerMatch.y);
+            Region region = new Region(
+                    topLeftCornerMatch.x,
+                    topLeftCornerMatch.y,
+                    (bottomRightCornerMatch.x - topLeftCornerMatch.x) + bottomRightCornerMatch.w,
+                    bottomRightCornerMatch.y - topLeftCornerMatch.y);
+            System.out.format("Region  X:%d  Y:%d  W:%d  H:%d.\n", region.x, region.y, region.w, region.h);
+            String fileName = region.saveScreenCapture();
+            String copiedFile = Utils.copyFile(fileName);
+            System.out.format("Image captured as %s and a copy %s.\n", fileName, copiedFile);
+            s.type(Key.ESC);
+            s.type(Key.TAB, KeyModifier.CTRL);
+            if (Utils.isNotBlank(fileName) && Utils.isNotBlank(clipboardContents)) {
+                s.click("images/mastodon_media_button.png");
+                s.click("images/file_system_label.png");
+                s.type(fileName);
+                s.type(Key.ENTER);
                 Utils.sleep(3);
-                System.out.println("Press ENTER.");
-                s.type(Key.ENTER);
-                Utils.sleep(5);
-                s.type(Key.TAB);
-                s.type(Key.TAB);
-                s.type(Key.TAB);
-                s.type(Key.SPACE);
-                //   System.out.println("Click down arrow.");
-                //  s.click("images/down_arrow.png");
-                System.out.println("Click copy link to tweet.");
-                //   s.type(Key.DOWN);
-                s.type(Key.DOWN);
-                s.type(Key.ENTER);
-                Utils.waitForImage(s, "images/url_for_this_tweet.png", 10);
-                System.out.println("Ctrl-c");
-                s.type("c", KeyModifier.CTRL);
-                String clipboardContents = Utils.getClipboard();
-                System.out.format("Clipboard contents: %s\n", clipboardContents);
-                s.type(Key.ESC);
+                s.type(clipboardContents);
+                s.type(" #chswx ");
+                s.click("images/toot_button.png");
                 Utils.sleep(2);
-                Match topLeftCornerMatch = s.find("images/top_left_corner.png");
-                System.out.format("Top left corner at H: %s W: %d X: %d Y: %d\n", topLeftCornerMatch.h, topLeftCornerMatch.w, topLeftCornerMatch.x, topLeftCornerMatch.y);
-                Match bottomRightCornerMatch = s.find("images/bottom_right_corner.png");
-                System.out.format("Bottom right corner at H: %s W: %d X: %d Y: %d\n", bottomRightCornerMatch.h, bottomRightCornerMatch.w, bottomRightCornerMatch.x, bottomRightCornerMatch.y);
-                Region region = new Region(
-                        topLeftCornerMatch.x,
-                        topLeftCornerMatch.y,
-                        (bottomRightCornerMatch.x - topLeftCornerMatch.x) + bottomRightCornerMatch.w,
-                        bottomRightCornerMatch.y - topLeftCornerMatch.y);
-                System.out.format("Region  X:%d  Y:%d  W:%d  H:%d.\n", region.x, region.y, region.w, region.h);
-                String fileName = region.saveScreenCapture();
-                String copiedFile = Utils.copyFile(fileName);
-                System.out.format("Image captured as %s and a copy %s.\n", fileName, copiedFile);
-                //   String[] openImageCommandParts = {"xdg-open", fileName};
-                //   Utils.run(openImageCommandParts);
-                s.type(Key.ESC);
                 s.type(Key.TAB, KeyModifier.CTRL);
-                if (Utils.isNotBlank(fileName) && Utils.isNotBlank(clipboardContents)) {
-                    s.click("images/mastodon_media_button.png");
-                    s.click("images/file_system_label.png");
-                    s.type(fileName);
-                    s.type(Key.ENTER);
-                    Utils.sleep(3);
-                    s.type(clipboardContents);
-                    s.type(" #chswx ");
-                    s.click("images/toot_button.png");
-                    Utils.sleep(2);
-                    s.type(Key.TAB, KeyModifier.CTRL);
-                }
             }
         }
     }
