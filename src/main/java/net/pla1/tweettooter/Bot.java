@@ -69,12 +69,25 @@ public class Bot {
         s.type(Key.TAB, KeyModifier.CTRL);
     }
 
+    private Region getRegionToMonitorForNewResults() throws FindFailed {
+        Screen s = new Screen();
+        Utils.waitForImage(s, "images/twitter_banner.png", 60);
+        Match match = s.find("images/twitter_banner.png");
+        System.out.format("Found Twitter banner - X:%d Y:%d H:%d W:%d\n", match.x, match.y, match.h, match.w);
+        Region region = new Region(match.x + match.w - 200, match.y + 30, 400, 100);
+        String screenCaptureFileName = region.saveScreenCapture();
+        String[] commandParts = {"xdg-open", screenCaptureFileName};
+        Utils.run(commandParts);
+        return region;
+    }
+
     private void monitorForNewResults() throws FindFailed {
         boolean done = false;
         Screen s = new Screen();
         while (!done) {
             System.out.format("Wait for new result. %s\n", new Date());
-            s.wait("images/new_result_label.png", Settings.FOREVER);
+            Region regionToMonitor = getRegionToMonitorForNewResults();
+            regionToMonitor.wait("images/new_result_label.png", Settings.FOREVER);
             System.out.println("Type period");
             s.type(".");
             System.out.println("Sleep 1 second.");
