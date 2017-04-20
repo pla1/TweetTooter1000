@@ -30,7 +30,7 @@ public class Bot {
         System.exit(0);
     }
 
-    private void login() throws FindFailed, IOException {
+    private void loginToTwitter() throws FindFailed, IOException {
         Properties properties = new Properties();
         properties.load(new FileInputStream(Utils.PROPERTY_FILE_NAME));
         Screen s = new Screen();
@@ -50,9 +50,8 @@ public class Bot {
     }
 
     private void startBrowser() throws FindFailed, IOException {
-
         Screen s = new Screen();
-        System.out.println(Utils.run(new String[]{"/usr/bin/killall", "chrome"}));
+        System.out.println(Utils.run(new String[]{"/usr/bin/killall", "chromium-browser"}));
         String[] commandParts = {"/usr/bin/chromium-browser", "--incognito", URL_TWITTER};
         Utils.runNoOutput(commandParts);
         Utils.waitForImage(s, "images/latest_label.png", 10);
@@ -60,11 +59,11 @@ public class Bot {
         s.type("t", KeyModifier.CTRL);
         s.type(URL_MASTODON);
         s.type(Key.ENTER);
-        Utils.waitForImage(s, "images/email_address_field.png", 10);
+        Utils.waitForImage(s, "images/mastodon_logo.png", 10);
         Properties properties = new Properties();
         properties.load(new FileInputStream(Utils.PROPERTY_FILE_NAME));
         s.type(properties.getProperty(Utils.PROPERTY_MASTODON_EMAIL_ADDRESS));
-        s.click("images/mastodon_password_field.png");
+        s.type(Key.TAB);
         s.type(properties.getProperty(Utils.PROPERTY_MASTODON_PASSWORD));
         s.type(Key.ENTER);
         s.type(Key.TAB, KeyModifier.CTRL);
