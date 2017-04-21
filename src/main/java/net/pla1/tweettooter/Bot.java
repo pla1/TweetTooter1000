@@ -119,6 +119,7 @@ public class Bot {
             if (Utils.isNotBlank(fileName)
                     && Utils.isNotBlank(clipboardContents)
                     && region.w > 200) {
+                Utils.waitForImage(s,"images/mastodon_media_button.png",10);
                 s.click("images/mastodon_media_button.png");
                 s.click("images/file_system_label.png");
                 s.type(fileName);
