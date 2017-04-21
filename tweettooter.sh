@@ -4,6 +4,7 @@
 #
 while true
 do
+  /usr/bin/git pull
   rm -rf build/classes/main
   mkdir -p build/classes/main
   javac -cp lib/sikulixapi.jar -d build/classes/main src/main/java/net/pla1/tweettooter/*.java
