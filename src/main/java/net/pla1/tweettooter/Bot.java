@@ -68,7 +68,7 @@ public class Bot {
         Utils.waitForImage(s, "images/twitter_banner.png", 60);
         Match match = s.find("images/twitter_banner.png");
         System.out.format("Found Twitter banner - X:%d Y:%d H:%d W:%d\n", match.x, match.y, match.h, match.w);
-        Region region = new Region(match.x + match.w - 200, match.y + 30, 400, 120);
+        Region region = new Region(match.x + match.w - 200, match.y, 400, 120);
         String screenCaptureFileName = region.saveScreenCapture();
         System.out.format("Screen capture file name for region to monitor is: %s.\n",screenCaptureFileName);
         return region;
