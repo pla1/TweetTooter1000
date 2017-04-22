@@ -70,7 +70,7 @@ public class Bot {
         System.out.format("Found Twitter banner - X:%d Y:%d H:%d W:%d\n", match.x, match.y, match.h, match.w);
         Region region = new Region(match.x + match.w - 200, match.y, 400, 120);
         String screenCaptureFileName = region.saveScreenCapture();
-        System.out.format("Screen capture file name for region to monitor is: %s.\n",screenCaptureFileName);
+        System.out.format("Screen capture file name for region to monitor is: %s.\nRegion: %s\n",screenCaptureFileName, region.toString());
         return region;
     }
 
