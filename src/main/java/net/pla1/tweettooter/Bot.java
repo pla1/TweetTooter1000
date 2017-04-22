@@ -70,7 +70,8 @@ public class Bot {
         System.out.format("Found Twitter banner - X:%d Y:%d H:%d W:%d\n", match.x, match.y, match.h, match.w);
         Region region = new Region(match.x + match.w - 200, match.y, 400, 120);
         String screenCaptureFileName = region.saveScreenCapture();
-        System.out.format("Screen capture file name for region to monitor is: %s.\nRegion: %s\n",screenCaptureFileName, region.toString());
+        System.out.format("Screen capture file name for region to monitor is: %s.\nRegion: - X:%d Y:%d H:%d W:%d\n",
+                screenCaptureFileName, region.x, region.y, region.h, region.w);
         return region;
     }
 
@@ -119,7 +120,7 @@ public class Bot {
             if (Utils.isNotBlank(fileName)
                     && Utils.isNotBlank(clipboardContents)
                     && region.w > 200) {
-                Utils.waitForImage(s,"images/mastodon_media_button.png",10);
+                Utils.waitForImage(s, "images/mastodon_media_button.png", 10);
                 s.click("images/mastodon_media_button.png");
                 s.click("images/file_system_label.png");
                 s.type(fileName);
