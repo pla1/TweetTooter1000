@@ -53,7 +53,7 @@ public class Bot {
         s.type("t", KeyModifier.CTRL);
         s.type(URL_MASTODON);
         s.type(Key.ENTER);
-        Utils.waitForImage(s, "images/mastodon_logo.png", 10);
+        Utils.waitForImage(s, "images/mastodon_logo.png", 60);
         Properties properties = new Properties();
         properties.load(new FileInputStream(Utils.PROPERTY_FILE_NAME));
         s.type(properties.getProperty(Utils.PROPERTY_MASTODON_EMAIL_ADDRESS));
