@@ -345,7 +345,7 @@ public class Utils {
         while (expired < seconds && !found) {
             System.out.format("Expired seconds: %d Threshold: %d\n", expired, seconds);
             try {
-                Settings.MinSimilarity = 0.9;
+        //        Settings.MinSimilarity = 0.9;
                 Iterator<Match> iter = screen.findAll(image);
                 while (iter.hasNext()) {
                     System.out.println("FOUND: " + iter.next());
