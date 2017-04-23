@@ -119,7 +119,8 @@ public class Bot {
             s.type(Key.TAB, KeyModifier.CTRL);
             if (Utils.isNotBlank(fileName)
                     && Utils.isNotBlank(clipboardContents)
-                    && region.w > 200) {
+                    && region.w > 200
+                    && region.h > 200) {
                 Utils.waitForImage(s, "images/mastodon_media_button.png", 10);
                 s.click("images/mastodon_media_button.png");
                 s.click("images/file_system_label.png");
@@ -130,8 +131,8 @@ public class Bot {
                 s.type(" #chswx ");
                 s.click("images/toot_button.png");
             } else {
-                System.out.format("Requirements for a successful post were not met.\n\tScreenshot file name: %s\n\tClipboard contents: \"%s\"\n\tRegion width: %d\n",
-                        fileName, clipboardContents, region.w);
+                System.out.format("Requirements for a successful post were not met.\n\tScreenshot file name: %s\n\tClipboard contents: \"%s\"\n\tRegion width: %d height: %d\n",
+                        fileName, clipboardContents, region.w, region.h);
             }
             Utils.sleep(2);
             s.type(Key.TAB, KeyModifier.CTRL);
