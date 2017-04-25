@@ -60,6 +60,10 @@ public class Bot {
         s.type(Key.TAB);
         s.type(properties.getProperty(Utils.PROPERTY_MASTODON_PASSWORD));
         s.type(Key.ENTER);
+        Utils.waitForImage(s, "images/globe_privacy_settings.png", 60);
+        s.click("images/globe_privacy_settings.png");
+        Settings.MinSimilarity = 0.9;
+        s.click("images/private_post_to_followers_only.png");
         s.type(Key.TAB, KeyModifier.CTRL);
     }
 
