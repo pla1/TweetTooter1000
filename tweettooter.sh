@@ -2,6 +2,7 @@
 #
 # Run Tweet Tooter 1000
 #
+cd ~/projects/TweetTooter1000
 while true
 do
   logger "$0 Start"
