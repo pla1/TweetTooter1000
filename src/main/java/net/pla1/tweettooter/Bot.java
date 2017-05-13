@@ -84,7 +84,7 @@ public class Bot {
         Region regionToMonitor = getRegionToMonitorForNewResults();
         while (true) {
             System.out.format("Wait for new result. %s\n", new Date());
-            regionToMonitor.wait("images/new_result_label.png", Settings.FOREVER);
+            regionToMonitor.wait("images/new_result_label.png", 120);
             System.out.println("Type period");
             s.type(".");
             System.out.println("Sleep 3 seconds.");
