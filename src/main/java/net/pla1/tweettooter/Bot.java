@@ -84,7 +84,12 @@ public class Bot {
         Region regionToMonitor = getRegionToMonitorForNewResults();
         while (true) {
             System.out.format("Wait for new result. %s\n", new Date());
-            regionToMonitor.wait("images/new_result_label.png", 120);
+            try {
+                regionToMonitor.wait("images/new_result_label.png", 120);
+            } catch (FindFailed ff) {
+                System.out.println("New results not found in timeout period of 120 seconds.");
+                continue;
+            }
             System.out.println("Type period");
             s.type(".");
             System.out.println("Sleep 3 seconds.");
