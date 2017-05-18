@@ -50,6 +50,7 @@ public class Bot {
         Utils.runNoOutput(new String[]{"/usr/bin/chromium-browser", "--incognito", URL_TWITTER});
         Utils.waitForImage(s, "images/latest_label.png", 10);
         s.type(Key.ESC);
+        Utils.click(s,"images/privacy_notice.png");
         s.type("t", KeyModifier.CTRL);
         s.type(URL_MASTODON);
         s.type(Key.ENTER);
