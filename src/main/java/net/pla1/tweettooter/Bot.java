@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Properties;
 
 public class Bot {
-    private final String URL_MASTODON = "https://octodon.social/auth/sign_in";
+    private final String URL_MASTODON = "https://mastodon.cloud/auth/sign_in";
     private final String URL_TWITTER = "https://twitter.com/search?f=tweets&vertical=default&q=chswx&src=typd";
 
     public static void main(String[] args) throws Exception {
