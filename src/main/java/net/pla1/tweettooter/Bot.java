@@ -70,6 +70,10 @@ public class Bot {
 
     private Region getRegionToMonitorForNewResults() throws FindFailed {
         Screen s = new Screen();
+        Utils.sleep(10);
+        s.type(Key.ESC);
+        s.type(Key.ESC);
+        s.type(Key.ESC);
         Utils.waitForImage(s, "images/twitter_banner.png", 60);
         Match match = s.find("images/twitter_banner.png");
         System.out.format("Found Twitter banner - X:%d Y:%d H:%d W:%d\n", match.x, match.y, match.h, match.w);
