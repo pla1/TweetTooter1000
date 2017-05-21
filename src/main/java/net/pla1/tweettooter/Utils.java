@@ -36,7 +36,9 @@ public class Utils {
         }
         return false;
     }
-
+    public static boolean isBrowserRunning() {
+        return Utils.run(new String[] {"/bin/ps", "-Alf"}).contains("chromium-browser");
+    }
     public static String copyFile(String fromFileName) {
         FileChannel fromFileChannel = null;
         FileChannel toFileChannel = null;
@@ -221,7 +223,10 @@ public class Utils {
     }
 
     public static void main(String[] args) throws Exception {
-
+        if (true) {
+            System.out.format("Is chromium-browser running: %s.\n", Utils.isBrowserRunning());
+            System.exit(0);
+        }
 
         if (false) {
             Screen s = new Screen();

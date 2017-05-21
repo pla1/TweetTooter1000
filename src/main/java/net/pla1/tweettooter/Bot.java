@@ -90,10 +90,13 @@ public class Bot {
         while (true) {
             System.out.format("Wait for new result. %s\n", new Date());
             try {
-                Settings.MinSimilarity = 0.5;
+                Settings.MinSimilarity = 0.6;
                 regionToMonitor.wait("images/new_result_label.png", 120);
             } catch (FindFailed ff) {
                 System.out.println("New results not found in timeout period of 120 seconds.");
+                if (!Utils.isBrowserRunning()) {
+                    System.exit(-1);
+                }
                 continue;
             }
             System.out.println("Type period");
